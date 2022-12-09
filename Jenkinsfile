@@ -8,19 +8,14 @@ pipeline {
     }
 
     stage('Log') {
-      parallel {
-        stage('Log') {
-          steps {
-            sh 'ls -la'
-          }
-        }
+      steps {
+        sh 'ls -la'
+      }
+    }
 
-        stage('Front-End unit test') {
-          steps {
-            sh 'cd curriculum-front &&  npm i && npm i vue-jest &&  npm run test:unit'
-          }
-        }
-
+    stage('Build') {
+      steps {
+        sh 'docker build -f curriculum-front/Dockerfile .'
       }
     }
 
